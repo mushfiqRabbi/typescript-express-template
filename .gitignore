@@ -47,6 +47,6 @@ coverage
 .jest
 
 # Package lock files (uncomment if you want to commit them)
-# package-lock.json
+package-lock.json
 # yarn.lock
 # pnpm-lock.yaml
