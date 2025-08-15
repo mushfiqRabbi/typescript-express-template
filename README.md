@@ -26,10 +26,16 @@ A production-ready TypeScript Express.js boilerplate with ESLint, Prettier, and 
    git clone your-repo-url
    cd your-repo-name
    ```
-3. **Install dependencies**:
+3. **Run the setup script** (automatically renames project and installs dependencies):
+   ```bash
+   ./setup.sh
+   ```
+   
+   Or manually install dependencies:
    ```bash
    npm install
    ```
+
 4. **Start development server**:
    ```bash
    npm run dev
@@ -66,7 +72,7 @@ src/
 
 ## Keeping Dependencies Updated
 
-This template uses semantic versioning (^) for dependencies, so you'll get compatible updates automatically. However, for major updates:
+This template uses semantic versioning (^) for dependencies, so you'll get compatible updates automatically. The setup script automatically checks for outdated packages after installation. For manual checks:
 
 1. **Check for outdated packages**:
    ```bash
