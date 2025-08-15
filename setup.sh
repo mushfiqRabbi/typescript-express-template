@@ -17,15 +17,20 @@ echo "📝 Updating project configuration..."
 sed -i "s/typescript-express-template/$REPO_NAME/g" package.json
 sed -i "s/typescript-express-template/$REPO_NAME/g" package-lock.json
 
+# Replace "template" and "boilerplate" references in package.json
+# Replace the entire keywords section to avoid duplicates
+sed -i '/"keywords": \[/,/\]/c\  "keywords": [\n    "typescript",\n    "express",\n    "project",\n    "eslint",\n    "prettier",\n    "nodejs"\n  ],' package.json
+sed -i 's/A production-ready TypeScript Express.js boilerplate with ESLint, Prettier, and best practices/A production-ready TypeScript Express.js project with ESLint, Prettier, and best practices/g' package.json
+
 # Remove template-specific files and folders
 echo "🧹 Cleaning up template files..."
 rm -rf .github
 
 # Create a simple README with just the project name
 echo "📝 Creating project README..."
-echo "# $TITLE_CASE_NAME" > README.md
-echo "" >> README.md
-echo "This project was created from the [TypeScript Express Template](https://github.com/your-username/typescript-express-template)." >> README.md
+echo "# $TITLE_CASE_NAME" >README.md
+echo "" >>README.md
+echo "A production-ready TypeScript Express.js project with ESLint, Prettier, and best practices." >>README.md
 
 # Install dependencies
 echo "📦 Installing dependencies..."
@@ -51,3 +56,4 @@ echo "   npm run update:latest"
 # Delete the setup script itself
 echo "🗑️ Cleaning up setup script..."
 rm -- "$0"
+
