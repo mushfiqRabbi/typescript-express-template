@@ -1,6 +1,6 @@
 # TypeScript Express Template
 
-A production-ready TypeScript Express.js boilerplate with ESLint, Prettier, and best practices.
+A production-ready TypeScript Express.js boilerplate with ESLint, Prettier, and best practices. Uses [mise](https://github.com/jdx/mise) for managing the Node.js version.
 
 ## Features
 
@@ -26,7 +26,14 @@ A production-ready TypeScript Express.js boilerplate with ESLint, Prettier, and 
    git clone your-repo-url
    cd your-repo-name
    ```
-3. **Run the setup script** (automatically renames project and installs dependencies):
+3. **Install mise** (if not already installed):
+   Follow the instructions at [https://github.com/jdx/mise](https://github.com/jdx/mise) to install mise.
+   
+   Then install the Node.js plugin:
+   ```bash
+   mise plugins install node
+   ```
+4. **Run the setup script** (automatically renames project and installs dependencies):
    ```bash
    ./setup.sh
    ```
@@ -36,7 +43,7 @@ A production-ready TypeScript Express.js boilerplate with ESLint, Prettier, and 
    npm install
    ```
 
-4. **Start development server**:
+5. **Start development server**:
    ```bash
    npm run dev
    ```
@@ -99,6 +106,21 @@ Create a `.env` file in the root directory:
 NODE_ENV=development
 PORT=3000
 ```
+
+## Using mise for Node.js Version Management
+
+This template uses [mise](https://github.com/jdx/mise) to manage the Node.js version. The required Node.js version is specified in the `.mise.toml` file.
+
+To use mise with this template:
+
+1. Install mise by following the instructions at [https://github.com/jdx/mise](https://github.com/jdx/mise)
+2. Install the Node.js plugin:
+   ```bash
+   mise plugins install node
+   ```
+3. When you enter the project directory, mise will automatically use the correct Node.js version specified in `.mise.toml`.
+
+This ensures that all developers on the project are using the same Node.js version, eliminating potential issues related to version differences.
 
 ## Best Practices Implemented
 

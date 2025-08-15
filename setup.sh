@@ -8,6 +8,10 @@ TITLE_CASE_NAME=$(echo "$REPO_NAME" | sed 's/-/ /g' | awk '{for(i=1;i<=NF;i++) $
 
 echo "🚀 Setting up $TITLE_CASE_NAME..."
 
+# This project uses mise (https://github.com/jdx/mise) to manage the Node.js version.
+# Ensure you have mise installed and the Node.js plugin enabled.
+# The required Node.js version is specified in .mise.toml
+
 # Replace template references in package.json and package-lock.json
 echo "📝 Updating project configuration..."
 sed -i "s/typescript-express-template/$REPO_NAME/g" package.json
