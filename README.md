@@ -14,7 +14,9 @@ A production-ready TypeScript Express.js boilerplate with ESLint, Prettier, and 
 - 🧪 **Strict TypeScript** - Enhanced type checking
 - 📦 **Separation of Concerns** - App, server, and config separation
 - 🛑 **Graceful Shutdown** - Proper process termination handling
-- 🐛 **Error Handling** - Uncaught exception and rejection handling
+- 🐛 **Global Error Handler** - Comprehensive error handling middleware
+- 📋 **Custom Error Types** - Predefined HTTP exception classes
+- 🔄 **Async Handler Wrapper** - Eliminates try/catch boilerplate in controllers
 
 ## Quick Start
 
@@ -53,6 +55,10 @@ A production-ready TypeScript Express.js boilerplate with ESLint, Prettier, and 
 src/
 ├── config/          # Configuration files
 │   └── env.ts       # Environment validation
+├── middlewares/     # Express middlewares
+│   ├── asyncHandler.ts  # Async route handler wrapper
+│   ├── errorHandler.ts  # Global error handling middleware
+│   └── errorTypes.ts    # Custom error classes
 ├── app.ts           # Express application setup
 ├── server.ts        # Server startup and shutdown
 └── index.ts         # Entry point
@@ -92,11 +98,76 @@ PORT=3000
 
 1. **Separation of Concerns** - App configuration separated from server logic
 2. **Graceful Shutdown** - Proper handling of process termination signals
-3. **Error Handling** - Catches unhandled exceptions and rejections
-4. **Type Safety** - Strict TypeScript configuration
-5. **Code Quality** - ESLint for code quality, Prettier for formatting
-6. **Environment Validation** - Zod schema validation for environment variables
-7. **Health Check** - `/health` endpoint for monitoring
+3. **Global Error Handling** - Comprehensive error handling with custom error types
+4. **Async Handler Wrapper** - Eliminates try/catch boilerplate in controllers
+5. **Type Safety** - Strict TypeScript configuration
+6. **Code Quality** - ESLint for code quality, Prettier for formatting
+7. **Environment Validation** - Zod schema validation for environment variables
+8. **Health Check** - `/health` endpoint for monitoring
+
+## Global Error Handler
+
+This template includes a global error handling middleware that:
+
+- Catches all unhandled errors in the application
+- Provides consistent error response format
+- Includes timestamp, path, and status code in error responses
+- Shows stack traces in development environment
+- Logs errors to the console with detailed information
+- Supports custom HTTP error types (400, 401, 403, 404, 500)
+
+### Usage
+
+Simply throw any of the custom error types in your routes or middleware:
+
+```typescript
+import { NotFoundException, BadRequestException } from './middlewares/errorTypes';
+
+app.get('/users/:id', (req, res) => {
+  const user = findUser(req.params.id);
+  if (!user) {
+    throw new NotFoundException('User not found');
+  }
+  res.json(user);
+});
+
+app.post('/users', (req, res) => {
+  if (!req.body.name) {
+    throw new BadRequestException('Name is required');
+  }
+  // Create user logic
+});
+```
+
+The global error handler will automatically catch these errors and format them appropriately.
+
+## Async Handler Wrapper
+
+The async handler wrapper eliminates the need for try/catch blocks in async route handlers:
+
+### Without asyncHandler (traditional approach):
+```typescript
+app.get('/users', async (req, res, next) => {
+  try {
+    const users = await getUsersFromDatabase();
+    res.json(users);
+  } catch (error) {
+    next(error); // Pass error to global error handler
+  }
+});
+```
+
+### With asyncHandler (simplified approach):
+```typescript
+import { asyncHandler } from './middlewares/asyncHandler';
+
+app.get('/users', asyncHandler(async (req, res) => {
+  const users = await getUsersFromDatabase();
+  res.json(users);
+}));
+```
+
+Any errors thrown in the async handler will be automatically caught and passed to the global error handler.
 
 ## Contributing
 

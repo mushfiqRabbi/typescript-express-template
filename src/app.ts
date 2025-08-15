@@ -1,27 +1,21 @@
 import express from 'express';
-import type { Application, Request, Response } from 'express';
-import { env } from './config/env';
+import type { Application, ErrorRequestHandler } from 'express';
+import routes from './routes';
+import { configureMiddleware } from './middlewares/configureMiddleware';
+import { errorHandler } from './middlewares/errorHandler';
 
 // Create Express app
 const createApp = (): Application => {
   const app: Application = express();
 
-  // Middleware
-  app.use(express.json());
+  // Configure middleware
+  configureMiddleware(app);
 
-  // Routes
-  app.get('/', (req: Request, res: Response) => {
-    res.send('Hello, TypeScript Express!');
-  });
+  // Register routes
+  app.use('/', routes);
 
-  // Health check endpoint
-  app.get('/health', (req: Request, res: Response) => {
-    res.status(200).json({ 
-      status: 'OK', 
-      timestamp: new Date().toISOString(),
-      environment: env.NODE_ENV
-    });
-  });
+  // Global error handler
+  app.use(errorHandler as ErrorRequestHandler);
 
   return app;
 };

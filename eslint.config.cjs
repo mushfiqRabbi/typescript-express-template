@@ -29,7 +29,7 @@ module.exports = [
       '@typescript-eslint/no-unused-vars': 'error',
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/consistent-type-imports': 'error',
-      
+
       // Additional best practices
       '@typescript-eslint/explicit-function-return-type': 'warn', // Encourage explicit return types
       '@typescript-eslint/no-unused-expressions': 'error', // Prevent unused expressions
@@ -41,11 +41,6 @@ module.exports = [
       '@typescript-eslint/prefer-nullish-coalescing': 'warn', // Prefer ?? over ||
       '@typescript-eslint/prefer-optional-chain': 'warn', // Prefer optional chaining
     },
-    ignores: [
-      'dist/',
-      'build/',
-      'node_modules/',
-      '*.min.js',
-    ],
+    ignores: ['dist/', 'build/', 'node_modules/', '*.min.js'],
   },
 ];
