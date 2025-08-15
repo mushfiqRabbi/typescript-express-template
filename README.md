@@ -100,12 +100,31 @@ After updating, run tests to ensure everything works correctly.
 
 ## Environment Variables
 
-Create a `.env` file in the root directory:
+This template uses Zod for environment variable validation. You can set the following variables:
 
+- `NODE_ENV` - Node environment ('development', 'production', or 'test'). Defaults to 'development'.
+- `PORT` - Server port number. Defaults to 3000.
+
+To set up environment variables:
+
+1. Copy the example file:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Modify the `.env` file with your desired values:
+   ```env
+   NODE_ENV=development
+   PORT=3000
+   ```
+
+For production deployment, you might set:
 ```env
-NODE_ENV=development
-PORT=3000
+NODE_ENV=production
+PORT=8080
 ```
+
+The `.env` file is included in `.gitignore` and will not be committed to the repository.
 
 ## Using mise for Node.js Version Management
 

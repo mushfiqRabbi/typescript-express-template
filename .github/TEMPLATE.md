@@ -19,8 +19,26 @@ Or manually install dependencies:
 npm install
 ```
 
-Then start the development server:
+## Environment Variables
 
+This template includes a `.env.example` file with default configuration values. 
+To set up your environment:
+
+1. Copy the example file:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Modify the `.env` file with your desired values.
+
+## Starting the Application
+
+Start the development server:
 ```bash
 npm run dev
+```
+
+For production builds:
+```bash
+npm run build && npm start
 ```
